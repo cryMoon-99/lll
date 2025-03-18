@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сюрприз для тебя ❤️</title>
+    <title>Люблю тебя ❤️</title>
     <style>
         body {
             background-color: black;
@@ -14,98 +14,95 @@
             overflow: hidden;
             position: relative;
         }
-        
-        .glow {
+
+        /* Эффект неонового свечения */
+        .neon-border {
             position: absolute;
             width: 100%;
             height: 100%;
-            box-shadow: inset 0 0 50px red;
+            box-shadow: 0 0 20px red, 0 0 40px red inset;
+            pointer-events: none;
         }
-        
+
         .button {
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
-            color: white;
-            font-size: 28px;
             padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background-color: red;
             border: none;
             cursor: pointer;
-            border-radius: 50px;
-            transition: 0.3s;
-            box-shadow: 0 0 20px rgba(255, 75, 43, 0.8);
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 2px;
-            position: relative;
-            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 15px red;
         }
-        
+
         .button:hover {
-            background: linear-gradient(45deg, #ff4b2b, #ff416c);
-            box-shadow: 0 0 30px rgba(255, 75, 43, 1);
             transform: scale(1.1);
+            box-shadow: 0 0 25px red;
         }
-        
-        .hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: none;
-        }
-        
+
+        /* Сердечки */
         .heart {
             position: absolute;
             color: red;
-            font-size: 20px;
-            animation: float 2s ease-out;
+            font-size: 30px;
+            animation: floatUp 2s ease-out forwards;
         }
-        
-        @keyframes float {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-150px) scale(1.5);
+                opacity: 0;
+            }
         }
-        
+
+        /* Текст "Люблю тебя" */
         .text {
-            position: absolute;
-            color: white;
-            font-size: 36px;
+            font-size: 40px;
             font-weight: bold;
+            color: white;
             opacity: 0;
-            transition: opacity 2s;
+            transform: scale(0.5);
+            transition: opacity 1s ease, transform 1s ease;
         }
     </style>
 </head>
 <body>
-    <div class="glow"></div>
-    <button class="button" id="explodeButton">Нажми</button>
-    <div class="hearts"></div>
-    <div class="text">Люблю тебя ❤️</div>
-    
+    <div class="neon-border"></div>
+    <button class="button" id="loveButton">Нажми</button>
+    <div class="text" id="loveText">Люблю тебя ❤️</div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("explodeButton").addEventListener("click", explode);
-        });
-        
-        function explode() {
-            document.querySelector('.button').style.display = 'none';
-            let heartsContainer = document.querySelector('.hearts');
-            heartsContainer.style.display = 'block';
-            
-            for (let i = 0; i < 30; i++) {
-                let heart = document.createElement('div');
-                heart.innerHTML = '❤️';
-                heart.classList.add('heart');
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.top = Math.random() * 100 + 'vh';
-                heart.style.animationDuration = (Math.random() * 2 + 1) + 's';
-                heartsContainer.appendChild(heart);
-                
+        document.getElementById("loveButton").addEventListener("click", function() {
+            this.style.display = "none"; // Скрываем кнопку
+
+            // Создаем сердечки
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+                document.body.appendChild(heart);
+
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight;
+                heart.style.left = `${x}px`;
+                heart.style.top = `${y}px`;
+
                 setTimeout(() => heart.remove(), 2000);
             }
-            
+
+            // Показываем текст
+            let loveText = document.getElementById("loveText");
             setTimeout(() => {
-                document.querySelector('.text').style.opacity = '1';
-            }, 2000);
-        }
+                loveText.style.opacity = "1";
+                loveText.style.transform = "scale(1)";
+            }, 500);
+        });
     </script>
 </body>
 </html>
