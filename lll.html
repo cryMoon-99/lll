@@ -8,6 +8,7 @@
         body {
             background-color: black;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -15,7 +16,6 @@
             position: relative;
         }
 
-        /* Эффект неонового свечения */
         .neon-border {
             position: absolute;
             width: 100%;
@@ -42,7 +42,6 @@
             box-shadow: 0 0 25px red;
         }
 
-        /* Сердечки */
         .heart {
             position: absolute;
             color: red;
@@ -61,7 +60,7 @@
             }
         }
 
-        /* Текст "Люблю тебя" */
+        /* Блок текста */
         .text {
             font-size: 40px;
             font-weight: bold;
@@ -69,19 +68,31 @@
             opacity: 0;
             transform: scale(0.5);
             transition: opacity 1s ease, transform 1s ease;
+            text-align: center;
+        }
+
+        /* Текст "Дунька" */
+        .subtext {
+            font-size: 30px;
+            font-weight: bold;
+            color: white;
+            opacity: 0;
+            transition: opacity 1s ease;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="neon-border"></div>
     <button class="button" id="loveButton">Нажми</button>
+    
     <div class="text" id="loveText">Люблю тебя ❤️</div>
+    <div class="subtext" id="subText">Дунька</div>
 
     <script>
         document.getElementById("loveButton").addEventListener("click", function() {
-            this.style.display = "none"; // Скрываем кнопку
+            this.style.display = "none"; 
 
-            // Создаем сердечки
             for (let i = 0; i < 20; i++) {
                 let heart = document.createElement("div");
                 heart.classList.add("heart");
@@ -96,12 +107,17 @@
                 setTimeout(() => heart.remove(), 2000);
             }
 
-            // Показываем текст
             let loveText = document.getElementById("loveText");
+            let subText = document.getElementById("subText");
+
             setTimeout(() => {
                 loveText.style.opacity = "1";
                 loveText.style.transform = "scale(1)";
             }, 500);
+
+            setTimeout(() => {
+                subText.style.opacity = "1";
+            }, 1200);
         });
     </script>
 </body>
